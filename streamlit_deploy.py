@@ -8,8 +8,8 @@ import joblib
 # ======================
 # Load trained model
 # ======================
-MODEL_PATH = "deployed_rf_model_sleep_5assessments.pkl"   # ← 改成你的 pkl 路径
-THRESHOLD = 0.5                  # ← 如果你有 Youden 阈值，在这里替换
+MODEL_PATH = "deployed_rf_model_sleep_5assessments.pkl"   # 
+THRESHOLD = 0.5                  # ← 
 
 
 model = joblib.load(MODEL_PATH)
@@ -116,7 +116,7 @@ st.image(
 # ======================
 # Prediction
 # ======================
-if st.button("🚀 Predict Relapse Risk"):
+if st.button("🚀 Predict Relapse Risk",type="primary"):
     prob = model.predict_proba(input_df)[:, 1][0]
     pred = int(prob >= THRESHOLD)
 
@@ -167,5 +167,6 @@ if st.button("🚀 Predict Relapse Risk"):
     # ).data  # 获取 HTML
 
     # st.components.v1.html(force_plot_html, height=300)
+
 
 
