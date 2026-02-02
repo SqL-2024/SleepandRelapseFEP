@@ -112,8 +112,8 @@ st.image(
     "deployed_model_shap_summary.png",
     caption=(
         "Mean absolute SHAP values from the training data of the deployed model. "
-        "The x-axis represents the SHAP value, i.e., the marginal impact of a feature on the model output: "
-        "positive SHAP values indicate that the feature increases the predicted outcome, whereas negative SHAP values indicate a decrease. "
+        "The x-axis represents the SHAP value, i.e., the impact of a feature on the model output: "
+        "positive SHAP values indicate that the feature increases the relapse risk, whereas negative SHAP values indicate a decrease. "
         "Features on the y-axis are ordered by their overall importance (mean absolute SHAP value). "
         "Each point corresponds to one observation. Color encodes the feature value, with red indicating higher values and blue indicating lower values. "
         "For example, higher values of 'insufficient_sleep_rate' are associated with higher predicted relapse risk (positive SHAP values), "
@@ -175,7 +175,7 @@ if st.button("🚀 Predict Relapse Risk",type="primary"):
         "The value of each input feature is shown on the y axis. "
         "Each feature's SHAP value is represented as a bar, where bars pushing to the right (in red) increase the predicted relapse risk, "
         "and bars pushing to the left (in blue) decrease it. "  
-        "The final prediction (the model output for this individual) is shown on the right with a gray line. (f(x)= ) "
+        "The final prediction (the model output for this individual) is shown on the right with a gray line (f(x)= )."
         "This visualization helps to understand which features are driving the prediction for this specific case."  
     )
 
@@ -190,6 +190,7 @@ if st.button("🚀 Predict Relapse Risk",type="primary"):
     # ).data  # 获取 HTML
 
     # st.components.v1.html(force_plot_html, height=300)
+
 
 
 
