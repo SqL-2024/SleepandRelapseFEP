@@ -89,7 +89,7 @@ def user_input_features():
         help="Proportion of days on which at least one sleep problem was reported."
     )
 
-    data["sleep_problem_burden"] = st.number_input(
+    data["sleep_problem_burden"] = st.slider(
         "Sleep problem burden (please input the average number of reported sleep problems per day, with multiple problems on the same day counted separately)",
         0.0, 3.0, 1.0,
         help="Average number of reported sleep problems per day, with multiple problems on the same day counted separately." \
@@ -190,6 +190,7 @@ if st.button("🚀 Predict Relapse Risk",type="primary"):
     # ).data  # 获取 HTML
 
     # st.components.v1.html(force_plot_html, height=300)
+
 
 
 
