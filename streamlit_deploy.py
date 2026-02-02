@@ -111,18 +111,16 @@ st.subheader("📈 Global Feature Importance (SHAP)")
 st.image(
     "deployed_model_shap_summary.png",
     caption=(
-        "Mean absolute SHAP values from the training data of the deployed model.\n\n"
+        "Mean absolute SHAP values from the training data of the deployed model. "
         "The x-axis represents the SHAP value, i.e., the marginal impact of a feature on the model output: "
-        "positive SHAP values indicate that the feature increases the predicted outcome, whereas negative SHAP values indicate a decrease.\n\n"
+        "positive SHAP values indicate that the feature increases the predicted outcome, whereas negative SHAP values indicate a decrease. "
         "Features on the y-axis are ordered by their overall importance (mean absolute SHAP value). "
-        "Each point corresponds to one observation. Color encodes the feature value, with red indicating higher values "
-        "and blue indicating lower values.\n\n"
-        "For example, higher values of 'insufficient_sleep_rate' (shown in red) are associated with higher predicted "
-        "relapse risk (positive SHAP values), indicating that a higher insufficient sleep rate increases relapse risk.\n\n"
+        "Each point corresponds to one observation. Color encodes the feature value, with red indicating higher values and blue indicating lower values. "
+        "For example, higher values of 'insufficient_sleep_rate' are associated with higher predicted relapse risk (positive SHAP values), "
+        "indicating that higher insufficient sleep rate increases relapse risk. "
         "When the same feature shows both red and blue points on both sides of zero, it indicates a context-dependent effect: "
-        "the feature can either increase or decrease the prediction depending on its value and the values of other features.\n\n"
-        "For instance, 'sleep_problem_rate' shows that both low and high values can decrease relapse risk, "
-        "while moderate values increase it."
+        "the feature can either increase or decrease the prediction depending on its value and the values of other features. "
+        "For instance, 'sleep_problem_rate' shows that both low and high values can decrease relapse risk, while moderate values increase it."
     ),
     use_column_width=True
 )
@@ -192,5 +190,6 @@ if st.button("🚀 Predict Relapse Risk",type="primary"):
     # ).data  # 获取 HTML
 
     # st.components.v1.html(force_plot_html, height=300)
+
 
 
