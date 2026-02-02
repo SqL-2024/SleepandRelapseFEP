@@ -174,7 +174,7 @@ if st.button("🚀 Predict Relapse Risk",type="primary"):
         "The waterfall plot illustrates how each feature contributes to the final prediction for this individual. " 
         "The value of each input feature is shown on the y axis. "
         "Each feature's SHAP value is represented as a bar, where bars pushing to the right (in red) increase the predicted relapse risk, "
-        "and bars pushing to the left (in blue) decrease it. "  
+        "and bars pushing to the left (in blue) decrease it. Numbers on the bars indicate SHAP values, quantifying each feature's contribution to the prediction."  
         "The final prediction (the model output for this individual) is shown on the right with a gray line (f(x)= )."
         "This visualization helps to understand which features are driving the prediction for this specific case."  
     )
@@ -190,6 +190,7 @@ if st.button("🚀 Predict Relapse Risk",type="primary"):
     # ).data  # 获取 HTML
 
     # st.components.v1.html(force_plot_html, height=300)
+
 
 
 
