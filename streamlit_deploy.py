@@ -8,8 +8,8 @@ import joblib
 # ======================
 # Load trained model
 # ======================
-MODEL_PATH = "deployed_rf_model_sleep_5assessments.pkl"   # 
-THRESHOLD = 0.5                  # ← 
+MODEL_PATH = "deployed_rf_model_sleep_5assessments.pkl"   # ← pkl 路径
+THRESHOLD = 0.5                  # ← Youden 阈值，在这里替换
 
 
 model = joblib.load(MODEL_PATH)
@@ -42,57 +42,58 @@ st.subheader("📋 Input Features")
 def user_input_features():
     data = {}
     data["sleep_coverage"] = st.slider(
-        "Sleep coverage",
+        "Sleep coverage (Please input the proportion of days with available sleep data during the assessment period)",
         0.0, 1.0, 0.8,
         help="Proportion of days with available sleep data during the assessment period."
     )
 
     data["trouble_falling_asleep_rate"] = st.slider(
-        "Trouble falling asleep rate",
+        "Trouble falling asleep rate (Please input the proportion of days in which someone answer Yes to the following question: “Did you have trouble falling asleep?” )",
         0.0, 1.0, 0.1,
         help="Proportion of days on which difficulty falling asleep was reported."
     )
 
     data["wakeup_frequently_rate"] = st.slider(
-        "Wake up frequently rate",
+        "Wake up frequently rate (Please input the proportion of days in which someone answer Yes to the following question: “Did you wake up frequently during the night?” )",
         0.0, 1.0, 0.1,
         help="Proportion of days on which frequent awakenings during sleep were reported."
     )
 
     data["insufficient_sleep_rate"] = st.slider(
-        "Insufficient sleep rate",
+        "Insufficient sleep rate (Please input the proportion of days in which someone answer Yes to the following question: “Do you feel you had enough sleep?” )",
         0.0, 1.0, 0.1,
         help="Proportion of days on which not have enough sleep  were reported."
     )
 
     data["sleep_hours_mean"] = st.number_input(
-        "Mean sleep hours",
+        "Mean sleep hours (please input the average number of hours slept per night across the assessment period)",
         0.0, 24.0, 7.0,
         help="Average number of hours slept per night across the assessment period."
     )
 
     data["sleep_hours_std"] = st.number_input(
-        "Sleep hours STD",
+        "Sleep hours STD (please input the standard deviation of nightly sleep duration across the assessment period)",
         0.0, 10.0, 1.0,
         help="Variability (standard deviation) of nightly sleep duration across the assessment period."
     )
 
     data["short_sleep_rate"] = st.slider(
-        "Short sleep rate",
+        "Short sleep rate (please input the proportion of days with sleep duration less than 7 hours)",
         0.0, 1.0, 0.1,
         help="Proportion of days with sleep duration less than 7 hours."
     )
 
     data["sleep_problem_rate"] = st.slider(
-        "Sleep problem rate",
+        "Sleep problem rate (please input the proportion of days on which at least one sleep problem was reported)",
         0.0, 1.0, 0.1,
         help="Proportion of days on which at least one sleep problem was reported."
     )
 
     data["sleep_problem_burden"] = st.number_input(
-        "Sleep problem burden",
+        "Sleep problem burden (please input the average number of reported sleep problems per day, with multiple problems on the same day counted separately)",
         0.0, 3.0, 1.0,
-        help="Average number of reported sleep problems per day, with multiple problems on the same day counted separately."
+        help="Average number of reported sleep problems per day, with multiple problems on the same day counted separately." \
+        "For example, if someone answer Yes to both questions: trouble falling asleep and waking up frequently on the same day, it counts as 2 problems for that day."
     )
 
 
@@ -109,7 +110,15 @@ st.subheader("📈 Global Feature Importance (SHAP)")
 
 st.image(
     "deployed_model_shap_summary.png",
-    caption="Mean absolute SHAP values from the training data of the deployed model.",
+    caption="Mean absolute SHAP values from the training data of the deployed model." \
+    "The x-axis represents the SHAP value, i.e., the marginal impact of a feature on the model output: " \
+    "positive SHAP values indicate that the feature increases the predicted outcome, whereas negative SHAP values indicate a decrease; " \
+    "Features on the y-axis are ordered by their overall importance (mean absolute SHAP value)."\
+    "Each point corresponds to one observation. Color encodes the feature value, with red indicating higher values and blue indicating lower values. " \
+    "For example, higher values of 'insufficient_sleep_rate' (in red) are associated with high predicted relapse risk (positive SHAP values), indicating that higher insufficient sleep rate increases relapse risk.",
+    "When the same feature shows both red and blue points on both sides of zero, it indicates a context-dependent effect: " \
+    "the feature can either increase or decrease the prediction depending on its value and the values of other features. "
+    "For instance, 'sleep_problem_rate' shows that both low and high values can decrease relapse risk, while moderate values increase it.",
     use_column_width=True
 )
 
@@ -156,6 +165,16 @@ if st.button("🚀 Predict Relapse Risk",type="primary"):
     )
 
     st.pyplot(fig)
+#add caption
+    st.caption(
+        "The waterfall plot illustrates how each feature contributes to the final prediction for this individual. " 
+        "The value of each input feature is shown on the y axis. "
+        "Each feature's SHAP value is represented as a bar, where bars pushing to the right (in red) increase the predicted relapse risk, "
+        "and bars pushing to the left (in blue) decrease it. "  
+        "The final prediction (the model output for this individual) is shown on the right with a gray line. (f(x)= ) "
+        "This visualization helps to understand which features are driving the prediction for this specific case."  
+    )
+
 
     # st.subheader("⚡ SHAP Force Plot for This Prediction")
     # force_plot_html = shap.force_plot(
@@ -167,6 +186,5 @@ if st.button("🚀 Predict Relapse Risk",type="primary"):
     # ).data  # 获取 HTML
 
     # st.components.v1.html(force_plot_html, height=300)
-
 
 
