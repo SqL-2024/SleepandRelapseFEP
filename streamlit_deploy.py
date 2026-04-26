@@ -9,7 +9,7 @@ import joblib
 # Load trained model
 # ======================
 MODEL_PATH = "deployed_rf_model_sleep_5assessments.pkl"   # ← pkl 路径
-THRESHOLD = 0.5                  # ← Youden 阈值，在这里替换
+THRESHOLD = 0.53                  # ← Youden 阈值，在这里替换
 
 
 model = joblib.load(MODEL_PATH)
@@ -26,7 +26,8 @@ st.write(
 
     Note: For more reliable results, we recommend completing as much of the 30-day sleep data collection as possible and carefully checking that all entered information is accurate.
     This tool is a research prototype and is not intended for clinical use.
-    Please interpret individual predictions with care and consider discussing the results with a healthcare professional.
+    This prototype is intended solely for use by researchers for further investigation and validation, and is not designed for use by patients or for clinical decision-making. 
+   No data are retained.
     """
 )
 
