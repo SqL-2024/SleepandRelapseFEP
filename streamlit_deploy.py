@@ -156,15 +156,24 @@ if st.button("🚀 Predict Relapse Risk",type="primary"):
     shap_values = explainer.shap_values(input_df)
 
     # 只解释正类（relapse）
-    shap_val_single = shap_values[0, :, 1]  # 第一个样本、第二个类别（relapse）
-
+    shap_val_single = shap_values[0, :, 1]  # 第一个样本、第二个类别（relapse
+    feature_names_pretty = [
+    "Sleep coverage",
+    "Trouble falling asleep (%)",
+    "Frequent awakenings (%)",
+    "Insufficient sleep (%)",
+    "Sleep duration (mean)",
+    "Sleep duration (SD)",
+    "Short sleep (%)",
+    "Sleep problems (%)",
+    "Sleep problem burden"] 
     fig, ax = plt.subplots(figsize=(8, 4))
     shap.waterfall_plot(
         shap.Explanation(
             values=shap_val_single,
             base_values=explainer.expected_value[1],
             data=input_df.iloc[0],
-            feature_names=input_df.columns
+            feature_names=feature_names_pretty
         ),
         max_display=10
     )
