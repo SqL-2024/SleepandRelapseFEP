@@ -110,7 +110,7 @@ st.markdown("---")
 st.subheader("📈 Global Feature Importance (SHAP)")
 
 st.image(
-    "deployed_model_shap_summary.png",
+    "deployed_model_shap_summary_updated.png",
     caption=(
         "Mean absolute SHAP values from the training data of the deployed model. "
         "The x-axis represents the SHAP value, i.e., the impact of a feature on the model output: "
