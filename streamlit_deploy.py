@@ -123,7 +123,7 @@ st.image(
         "the feature can either increase or decrease the prediction depending on its value and the values of other features. "
         "For instance, 'sleep_problem_rate' shows that both low and high values can decrease relapse risk, while moderate values increase it."
     ),
-    use_column_width=True
+    use_container_width=True
 )
 
 
